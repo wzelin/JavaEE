@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中国省市县</title>
+</head>
+<body>
+<div id="app">
+
+    <label >地址：</label>
+    <select v-model="v1">
+        <option value="" disabled>请选择省</option>
+        <option v-for="line of list1" :value="line">{{line.name}}</option>
+    </select>
+    <select v-model="v2">
+        <option value="0" disabled>请选择市</option>
+        <option v-for="line of list2" :value="line">{{line.name}}</option>
+    </select>
+    <select v-model="v3">
+        <option value="0" disabled>请选择县</option>
+        <option v-for="line of list3" :value="line">{{line.name}}</option>
+    </select>
+    <br>
+
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/pca.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+       // data属性
+        data:{
+            list1:pca,
+            v1:'',
+            v2:'',
+            v3:''
+        },
+        // 计算属性
+        computed:{
+                list2:function () {
+                    this.v2 = 0;
+                    return this.v1['children']
+                },
+                list3:function () {
+                    this.v3 = 0;
+                    return this.v2['children']
+                }
+
+        },
+
+        // 方法属性
+        methods:{
+
+        },
+        // 过滤器属性
+        filters:{
+
+        }
+    });
+</script>
+
+</body>
+</html>

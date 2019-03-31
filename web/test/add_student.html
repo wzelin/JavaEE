@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生信息</title>
+</head>
+<body>
+<!--action表示表单提交到的URL
+method表示用什么方法提交-->
+<form action="/test3" method="get">
+    <label>姓名：</label>
+    <input name="name" type="text" placeholder="请输入姓名"/>
+    <br>
+    <label>年龄：</label>
+    <input name="age" type="number" placeholder="请输入年龄"/>
+    <br>
+    <label>性别：</label>
+    <input name="sex" type="radio" value="1"/><label>男</label>
+    <input name="sex" type="radio" value="0"/><label>女</label>
+    <br>
+    <label>爱好</label>
+    <input name="fav" type="checkbox" value="1"/><label>下棋</label>
+    <input name="fav" type="checkbox" value="2"/><label>游泳</label>
+    <input name="fav" type="checkbox" value="3"/><label>打球</label>
+    <input name="fav" type="checkbox" value="4"/><label>跳舞</label>
+    <br>
+    <label>学历</label>
+    <select name="edu">
+        <option value="1">高中及以下</option>
+        <option value="2">专科</option>
+        <option value="3">本科及以上</option>
+    </select>
+    <label>自我介绍</label>
+    <textarea name="desc" cols="20" rows="5"></textarea>
+    <button type="submit">提交</button>
+    <button type="reset">重置</button>
+</form>
+    <!--name属性为必须属性，它会给后台传递参数-->
+</body>
+</html>

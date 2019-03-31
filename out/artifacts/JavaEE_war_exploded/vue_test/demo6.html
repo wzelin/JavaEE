@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue</title>
+</head>
+<body>
+
+<div id="app">
+
+    <label >地铁线路：</label>
+    <select v-model="line_start">
+        <option v-for="line of metro" :value="line.id">{{line.name}}</option>
+    </select>
+    <label>起始站：</label>
+    <select v-model="start">
+        <option v-for="stat of stat_start" :value="stat.index">{{stat.name}}</option>
+    </select>
+
+    <br><br>
+
+    <label>地铁线路：</label>
+    <select v-model="line_starts">
+        <option v-for="line_o of metro" :value="line_o.id">{{line_o.name}}</option>
+    </select>
+    <label>终点站：</label>
+    <select v-model="end">
+        <option v-for="stat of stat_start" :value="stat.index">{{stat.name}}</option>
+    </select>
+    <br>
+
+    <!--<h2>起始站index:{{start}}&nbsp;&nbsp;&nbsp;&nbsp;终点站index:{{end}}</h2>-->
+
+    <!--<h2>票价:{{price[Math.abs(start - end)]}}</h2>-->
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/metro.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        price:[0,2,2,2,3,3,3,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8],
+        // data属性
+        data:{
+            line_start:1,// 开始站点所在线路
+            start: '',// 开始站点
+            end:'',
+            metro:metro
+        },
+        // 计算属性
+        computed:{
+            stat_start:function () {
+                // this 表示当前vue对象
+                /**
+                 * this.xxx 这个xxx表示调用的data的属性或者methods属性中的方法
+                 * 如果要调用vue自己的属性如：data等
+                 * this.$data
+                 */
+                for(var index in this.metro){
+                    if(this.metro[index].id == this.line_start){
+                        return this.metro[index].stations;
+                    }
+                }
+                return [];
+            }
+            
+        },
+
+        // 方法属性
+        methods:{
+
+        },
+        // 过滤器属性
+        filters:{
+
+        }
+    });
+</script>
+
+</body>
+</html>

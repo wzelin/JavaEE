@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地址级联下拉框</title>
+</head>
+<body>
+<div id="app">
+    <addr-casecade test="出发地：" ></addr-casecade>
+    <addr-casecade test="到达地：" v1=12 v2=1201 v3=120101></addr-casecade>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/pca.js"></script>
+<script src="../js/addr-casecade.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+    });
+</script>
+
+</body>
+</html>

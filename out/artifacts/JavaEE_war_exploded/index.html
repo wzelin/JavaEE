@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaEE</title>
+</head>
+<body>
+
+<!--/test2?name = abc & namedesc = 曾勇
+完整的写法：http://IP或域名：端口/应用上下文/test2?name = abc & namedesc = 曾勇
+没有应用上下文，则表示为
+http://IP或域名：端口/test2?name = abc & namedesc = 曾勇
+一般情况下，我们的应用都会应用上下文
+在本实例中的访问路径为：
+http://localhost:8090/test2?name = abc & namedesc = 曾勇
+“？”之前是url（统一资源定位符）,之后是这个链接传送到后台的参数，
+多个参数间用“&”连接
+一个参数包含：参数名称 = 参数值
+“？”之前和之后的都是URL，之间不允许出现空格
+
+-->
+<a href="/test2?name=abc&desc=曾勇">get方法获取参数</a>
+<br>
+<a href="/test/add_student.html">添加学生信息</a>
+<br>
+<a href="test/add_teachar.html">添加老师信息</a>
+<br>
+<a href="test/query_student.html">查询学生信息</a>
+<br>
+<a href="element_ui/student/student.html">学生信息管理</a>
+<br>
+<a href="element_ui/teacher/teacher.html">教师信息管理</a>
+<br>
+<a href="element_ui/test/test3.html">用户信息管理</a>
+<br>
+<a href="test/vote.html">投票系统</a>
+</body>
+</html>

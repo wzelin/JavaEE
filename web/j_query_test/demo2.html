@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery对象本质为DOM数组</title>
+</head>
+<body>
+    <p>jQuery对象本质为DOM数组</p>
+    <p>DOM数组就是js数组</p>
+    <p>因此可用操作数组的方式操作jQuery对象</p>
+    <button onclick="big();">+</button>
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+<script>
+    function big() {
+        //实现每个p标签字符数值不同增大
+        //p[i]和p.get(i)两者等价,
+        //得到的都是DOM对象，无法调用jQuery方法；
+        //可用$(DOM对象)的方式转换为jquery对象以调用jQuery方法
+        var p = $("p");
+        for(var i = 0;i <p.length;i++){
+            var size = parseInt($(p[i]).css("font-size").replace("px",""));
+            $(p[i]).css("font-size",(size+5*i)+"px");
+        }
+    }
+
+</script>
+</html>

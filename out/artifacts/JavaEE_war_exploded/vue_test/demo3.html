@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{num}}</h1>
+   <h1 v-if="num == 1">当num等于1时</h1>
+   <h1 v-else-if="num == 2">当num等于2时</h1>
+   <h1 v-else>当num不等于1和2时</h1>
+    <h1 v-show = "num ==1">(v-show)当num等于1时</h1>
+    <input type="text" v-model="num">
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            num:3
+        },methods:{
+            fn:function() {
+                alert("vue添加事件成功")
+            }
+        }
+    })
+</script>
+</body>
+</html>

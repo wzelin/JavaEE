@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<link rel="stylesheet" href="../css/index.css">
+<style>
+    .el-header{
+        padding: 0px;
+    }
+</style>
+<body>
+    <div id="app">
+        <el-container>
+            <el-header>
+                <header-bar></header-bar>
+            </el-header>
+            <el-container>
+                <el-aside width="200px">
+                   <side-bar></side-bar>
+                </el-aside>
+                <el-main>主题</el-main>
+            </el-container>
+        </el-container>
+    </div>
+</body>
+<script src="../js/vue.js"></script>
+<!-- 导入 JavaScript -->
+<script src="../js/element.js"></script>
+<script src="../js/side.js"></script>
+<script src="../js/header.js"></script>
+<!--<script src="../js/studentmger.js"></script>
+<script src="../js/my-router.js"></script>-->
+<script>
+    new Vue({
+        el: '#app',
+        components:{
+            'side-bar':Side,
+            'header-bar':Header
+        }
+    })
+</script>
+</html>

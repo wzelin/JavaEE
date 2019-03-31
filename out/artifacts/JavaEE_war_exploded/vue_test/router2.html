@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>router1</title>
+</head>
+<body>
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+
+<div id="app">
+    <h1>学生信息</h1>
+    <p>
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link to="/foo">添加</router-link>
+        <router-link to="/bar">查询</router-link>
+        <router-link to="/foo">修改</router-link>
+    </p>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+</div>
+<script>
+    // 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
+
+    // 1. 定义 (路由) 组件。
+    // 可以从其他文件 import 进来
+    const Foo = { template: `<form action="/test3" method="get">
+    <label>姓名：</label>
+    <input name="name" type="text" placeholder="请输入姓名"/>
+    <br>
+    <label>年龄：</label>
+    <input name="age" type="number" placeholder="请输入年龄"/>
+    <br>
+    <label>性别：</label>
+    <input name="sex" type="radio" value="1"/><label>男</label>
+    <input name="sex" type="radio" value="0"/><label>女</label>
+    <br>
+    <label>爱好</label>
+    <input name="fav" type="checkbox" value="1"/><label>下棋</label>
+    <input name="fav" type="checkbox" value="2"/><label>游泳</label>
+    <input name="fav" type="checkbox" value="3"/><label>打球</label>
+    <input name="fav" type="checkbox" value="4"/><label>跳舞</label>
+    <br>
+    <label>学历</label>
+    <select name="edu">
+        <option value="1">高中及以下</option>
+        <option value="2">专科</option>
+        <option value="3">本科及以上</option>
+    </select>
+    <label>自我介绍</label>
+    <textarea name="desc" cols="20" rows="5"></textarea>
+    <button type="submit">提交</button>
+    <button type="reset">重置</button>
+</form>
+` }
+    const Bar = { template: `<div>
+
+    <form action="/test5" method="post">
+
+        <label>姓名：</label>
+        <input name="name" type="text" onblur="checkName();"/>
+        <span id="nameCheck" style="display: none;color: red;">姓名长度在2~20</span>
+        <br/>
+        <label>年龄：</label>
+        <input name="age_s" type="number" onblur="checkAge();"/>
+        <label>至：</label>
+        <input name="age_e" type="number" onblur="checkAge();"/>
+        <br/>
+        <span id="age_sc" style="display: none;color: red;">年龄不符合格式0~150</span>
+        <span id="age_ec" style="display: none;color: red;">开始不能大于结束</span>
+        <br/>
+
+        <button type="submit" onclick="return commit();">提交</button>
+    </form>
+
+</div>
+` }
+    // 2. 定义路由
+    // 每个路由应该映射一个组件。 其中"component" 可以是
+    // 通过 Vue.extend() 创建的组件构造器，
+    // 或者，只是一个组件配置对象。
+    // 我们晚点再讨论嵌套路由。
+    const routes = [
+        { path: '/foo', component: Foo },
+        { path: '/bar', component: Bar },
+        { path: '/foo', component: Foo }
+    ]
+
+    // 3. 创建 router 实例，然后传 `routes` 配置
+    // 你还可以传别的配置参数, 不过先这么简单着吧。
+    const router = new VueRouter({
+        routes // (缩写) 相当于 routes: routes
+    })
+
+    // 4. 创建和挂载根实例。
+    // 记得要通过 router 配置参数注入路由，
+    // 从而让整个应用都有路由功能
+    const app = new Vue({
+        router
+    }).$mount('#app')
+
+    // 现在，应用已经启动了！
+</script>
+</body>
+</html>

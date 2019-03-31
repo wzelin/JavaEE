@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!--工程名称描述-->
+    <display-name>JavaEE</display-name>
+    <welcome-file-list>
+        <!--欢迎界面（首页）
+        优先级从上到下,意思是如果index.html不存在，就用index.jsp
+        注意：相关文件必须在web文件夹下web/index.html
+        -->
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!--
+    -->
+    <servlet>
+        <!--名称随意，不重复即可，一般使用servlet的类名-->
+        <servlet-name>HelloServlet</servlet-name>
+        <!--我们自定义的servlet的全类名-->
+        <servlet-class>com.xxx.javaee.servlet.HelloServlet</servlet-class>
+
+    </servlet>
+
+    <servlet-mapping>
+        <!--对应上面的名称-->
+        <servlet-name>HelloServlet</servlet-name>
+        <!--该servlet的url访问地址-->
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+
+</web-app>

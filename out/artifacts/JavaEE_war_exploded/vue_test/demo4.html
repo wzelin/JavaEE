@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格渲染</title>
+</head>
+<body>
+    <div id="app">
+      <table border="1px">
+          <tr>
+          <td>姓名</td>
+          <td>年龄</td>
+          <td>性别</td>
+          <td>自我介绍</td>
+          </tr>
+         <tr v-for = "p in list">
+             <td>{{p.name}}</td>
+             <td>{{p.age}}</td>
+             <td>{{p.sex |  setFilter}}</td>
+             <td>{{p.desc}}</td>
+         </tr>
+
+      </table>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            //id绑定
+            el:'#app',
+            //文档属性
+            data:{
+               list:[{name:"张鹏",
+                        age:12,
+                        sex:0,
+                        desc:"自我介绍"},
+                   {name:"曾勇",
+                       age:14,
+                       sex:0,
+                       desc:"自我介绍"},
+                   {name:"张鹏",
+                       age:12,
+                       sex:0,
+                       desc:"自我介绍"}]
+            },
+            //方法属性
+            methods:{
+
+            },
+            //过滤器属性
+            filters:{
+                setFilter:function(v) {
+                    return v==0?'男':'女';
+                }
+            }
+        })
+    </script>
+</body>
+</html>

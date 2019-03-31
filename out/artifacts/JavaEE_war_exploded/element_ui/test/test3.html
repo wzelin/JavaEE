@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="../../css/index.css"/>
+</head>
+<body>
+
+<div id="app">
+    <!--查询表单-->
+    <el-form ref="form" :model="formData" label-width="80px">
+        <el-row>
+            <el-col :span="12">
+                <el-form-item label="姓名" prop="name">
+                    <el-input v-model="formData.name" placeholder="请输入姓名" size="small"></el-input>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('form')" size="small" :loading="loading">查询</el-button>
+                    <el-button @click="resetForm('form')" size="small">重置</el-button>
+                    <el-button v-if="Register == '登录'" type="success" @click="handleEdit()" size="small">{{Register}}</el-button>
+                    <el-button v-if="Register == '已登录'" type="info" plain disabled>{{Register}}</el-button>
+                </el-form-item>
+            </el-col>
+        </el-row>
+
+    </el-form>
+    <!--动态渲染用户表格-->
+    <el-table
+            size="mini"
+            v-loading="loading"
+            :data="rsData"
+             height="400"
+            border
+            stripe
+            style="width: 100%"
+    >
+        <el-table-column
+                type="selection"
+                width="55">
+        </el-table-column>
+        <el-table-column
+                prop="id"
+                label="id"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="name"
+                label="用户名"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="password"
+                label="密码"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="age"
+                label="年龄">
+        </el-table-column>
+        <el-table-column
+                prop="sex"
+                label="性别">
+            <template slot-scope="scope">
+                {{sexFilter(scope.row.sex)}}
+            </template>
+        </el-table-column>
+    </el-table>
+    <span>有{{man}}位男士，有{{woman}}位女士</span>
+    <!--用户登录界面-->
+    <el-dialog title="登录" :visible.sync="updateDialogVisible">
+        <el-form ref="formEdit" :rules="rules" :model="formDataEdit" label-width="80px">
+            <span STYLE="color: red">{{msg}}</span>
+            <el-form-item label="用户名" prop="name">
+                        <el-input v-model="formDataEdit.name" placeholder="请输入用户名" size="small"></el-input>
+                    </el-form-item>
+            <el-form-item label="密码" prop="pass">
+                <el-input type="password" v-model="formDataEdit.pass" placeholder="请输入密码" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-row>
+                <el-col :span="18">
+                    <el-form-item label="验证码" prop="checkCode">
+                        <el-input v-model="formDataEdit.checkCode" placeholder="请输入验证码"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <img id="checkId" src="/checkCode" alt="图片不存在" @click="createCheckCode"/>
+                </el-col>
+            </el-row>
+        </el-form>
+        <el-button type="primary" @click="submitRegisterForm('formEdit')" style="width:100%;" :loading="loading">登录</el-button>
+    </el-dialog>
+
+
+
+</div>
+
+</body>
+<script src="../../js/vue.js"></script>
+<script src="../../js/element.js"></script>
+<script src="../../js/axios.min.js"></script>
+<script>
+
+    var app = new Vue({
+        el: "#app",
+        data:function () {
+            return {
+                loading:false,
+                msg:'',
+                Register:'登录',
+                man:0,
+                woman:0,
+                rsData:[],
+                formData:{
+                    name:""
+                },
+
+                updateDialogVisible: true,
+
+                formDataEdit:{
+                    name:"",
+                    pass:"",
+                    checkCode:""
+                },
+
+                rules:{
+                    name:[{
+                        min: 1,
+                        max: 10,
+                        message: '长度在 1 到 10 个字符',
+                        trigger: 'blur'
+                    },{
+                        required: true,
+                        message: '请输入用户名',
+                        trigger: 'blur'
+                    }],
+                    pass:[{
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur'
+                    }],
+                    checkCode:[{
+                        required: true,
+                        message: '请输入验证码',
+                        trigger: 'blur'
+                    }]
+                }
+            }
+        },
+        methods: {
+            createCheckCode:function () {
+                document.getElementById("checkId").src = "/checkCode?time="+new Date().getTime();
+            },
+
+            submitForm(formName) {
+                var _this = this;
+                var data = this.formData;
+                if(_this.Register == '已登录'){
+                    this.$refs[formName].validate((valid) => {
+                        if (valid) {
+                            _this.loading = true;
+                            axios.post('/info/query',data).then(function (response) {
+                                _this.rsData = response.data;
+                                _this.manwoman();
+                                _this.loading = false;
+                            });
+                        } else {
+                            console.log('error submit!!');
+                            return false;
+                        }
+                    });
+                }else {
+                    _this.msg = "请先登录";
+                   _this.handleEdit();
+                }
+            },
+
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+                this.updateDialogVisible = false
+            },
+
+            handleEdit:function (index, row) {
+                this.updateDialogVisible = true;
+            },
+
+            submitRegisterForm(formName) {
+                var _this = this;
+                var data = this.formDataEdit;
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        _this.loading = true;
+                        axios.post('/info/reg',data).then(function (response) {
+                            if(response.data.success) {
+                                _this.rsData = response.data.data;
+                                _this.manwoman();
+                                _this.$message({
+                                    message:response.data.msg,
+                                    type: 'success',
+                                    duration: 2000,
+                                });
+                                _this.loading = false;
+                                _this.updateDialogVisible = false;
+                                _this.Register = '已登录';
+                            }else {
+                                _this.loading = false;
+                                _this.msg = response.data.msg;
+                                _this.createCheckCode();
+                            }
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+
+            sexFilter:function (v) {
+                return v==0?'女':'男';
+            },
+
+            manwoman(){
+                this.woman = 0;
+                this.man = 0;
+              var len =  this.rsData.length;
+                for(var i = 0;i <len;i++){
+                  if(this.rsData[i].sex ==0){
+                      this.woman = this.woman+1;
+                  }else {
+                      this.man = this.man+1;
+                  }
+                }
+            }
+        },
+    });
+
+</script>
+</html>

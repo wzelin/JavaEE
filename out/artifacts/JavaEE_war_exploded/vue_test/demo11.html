@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue</title>
+</head>
+<body>
+<div id="app">
+    <select v-model="level">
+        <option v-for ="i in 3">{{i}}</option>
+    </select>
+    <casecade :level="level" v-model= "v1"></casecade>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../js/pca.js"></script>
+<script src="../js/casecade.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        // data属性
+        data:{
+            level:3,
+            v1:12,
+            aa:1201,
+            bb:120101
+        },
+        //注册局部变量
+       components:{
+           'casecade':Casecade
+       }
+    });
+</script>
+
+</body>
+</html>

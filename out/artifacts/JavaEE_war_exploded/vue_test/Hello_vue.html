@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello vue</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Hello {{msg}}</h1>
+        <div>{{html}}</div>
+        <div v-html= "html"></div>
+        <!-- v-html指令 —— 将变量解释为HTML代码-->
+    </div>
+
+    <script src="../js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            msg : "vue",
+            html : "<h2>我是HTML的h2元素</h2>"
+        }
+    });
+</script>
+</body>
+</html>

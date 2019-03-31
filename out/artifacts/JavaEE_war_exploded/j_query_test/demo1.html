@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+</head>
+<body>
+    <h1>jQuery测试</h1>
+    <button onclick="big();">字体放大</button>
+    <button onclick="small();">字体缩小</button>
+    <p>jQuery是js的一个优秀的框架，一个轻量级的js库</p>
+    <p>轻量级:简单的说就是耦合度低</p>
+    <p>它封装了js,css,DOM,提供了一致的API</p>
+    <p>它兼容CSS3以及各种浏览器</p>
+    <p>本次测试为用jQuery实现所有p元素字体缩放功能</p>
+
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+<script>
+    function big(){
+        var font_size = $("p").css("font-size");
+        var size = parseInt(font_size.replace("px",""));
+        $("p").css("font-size",(size+5)+"px");
+    }
+    function small(){
+        var font_size = $("p").css("font-size");
+        var size = parseInt(font_size.replace("px",""));
+        $("p").css("font-size",(size-5)+"px");
+    }
+</script>
+</html>

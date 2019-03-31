@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息查询</title>
+</head>
+<body>
+
+<div>
+
+    <form action="/test5" method="post">
+
+        <label>姓名：</label>
+        <input name="name" type="text" onblur="checkName();"/>
+        <span id="nameCheck" style="display: none;color: red;">姓名长度在2~20</span>
+        <br/>
+        <label>年龄：</label>
+        <input name="age_s" type="number" onblur="checkAge();"/>
+        <label>至：</label>
+        <input name="age_e" type="number" onblur="checkAge();"/>
+        <br/>
+        <span id="age_sc" style="display: none;color: red;">年龄不符合格式0~150</span>
+        <span id="age_ec" style="display: none;color: red;">开始不能大于结束</span>
+        <br/>
+
+        <button type="submit" onclick="return commit();">提交</button>
+    </form>
+
+</div>
+
+
+<script>
+
+    function isEmpty(v) {
+        // trim() 表示去除字符串前后的空格
+        if(v != null && v.trim() != ""){
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 表单验证：
+     *  单输入框的验证：
+     *      能不能不填（必填或非必填）
+     *      数据长度判断
+     *      数字判断
+     *      正则验证（手机号、邮箱、身份证号等等）
+     *      复选框的多选个数（至少选3个）
+     *  多输入框的验证：
+     *      范围输入框的验证（日期范围、数字范围） - 开始范围不能大于结束范围
+     *      级联下拉框（类别、地址） - 不能出现前一个下拉框范围之外的物品
+     *      库存：20  出库：30
+     */
+
+    function checkName() {
+        var name = document.getElementsByName("name")[0].value;
+
+        if(!isEmpty(name) && (name.length < 2 || name.length > 20)){
+            document.getElementById("nameCheck").style.display = "inline";
+            return false;
+        }else {
+            document.getElementById("nameCheck").style.display = "none";
+        }
+    }
+
+    function checkAge() {
+
+        document.getElementById("age_sc").style.display = "none";
+        document.getElementById("age_ec").style.display = "none";
+
+        var ageS = document.getElementsByName("age_s")[0].value;
+        var ageE = document.getElementsByName("age_e")[0].value;
+
+        if(!isEmpty(ageS) && (ageS > 150 || ageS < 0)){
+            document.getElementById("age_sc").style.display = "inline";
+            return false;
+        }
+
+        if(!isEmpty(ageE) && (ageE > 150 || ageE < 0)){
+            document.getElementById("age_sc").style.display = "inline";
+            return false;
+        }
+
+        if(!isEmpty(ageE) && !isEmpty(ageS) && parseInt(ageS) > parseInt(ageE)){
+            document.getElementById("age_ec").style.display = "inline";
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function commit() {
+
+        if(checkName() == false || checkAge() == false){
+            alert("输入错误!!!");
+            return false;
+        }else {
+            return true
+        }
+    }
+
+</script>
+
+</body>
+</html>

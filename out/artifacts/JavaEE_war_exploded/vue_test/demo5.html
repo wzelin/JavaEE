@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+</head>
+<body>
+<div id="app">
+    <label>起始站</label>
+    <select v-model="start">
+        <option v-for="stat of station" :value="stat.index">{{stat.name}}</option>
+    </select>
+    <label>到</label>
+    <select v-model="end">
+        <option v-for="stat of station" :value="stat.index">{{stat.name}}</option>
+    </select>
+    <h2>起始站index: {{start}}&nbsp;&nbsp;&nbsp;&nbsp;结束站index: {{end}}</h2>
+    <h2>票价：{{price[Math.abs(start-end)]}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    var app = new Vue({
+        //id绑定
+        el:'#app',
+        //文档属性
+        data:{
+            staet:'',
+            end:'',
+            price:[0,1,1,2,2,3,3,3,3,4,4,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8],
+           station :[{
+        index:1,
+            name:"西河"
+    },{
+        index:2,
+            name:"明蜀王陵"
+    },{
+        index:3,
+            name:"成都大学"
+    },{
+        index:4,
+            name:"十陵"
+    },{
+        index:5,
+            name:"来龙"
+    },{
+        index:6,
+            name:"槐树店"
+    },{
+        index:7,
+            name:"万年场"
+    },{
+        index:8,
+            name:"双桥路"
+    },{
+        index:9,
+            name:"玉双路"
+    },{
+        index:10,
+            name:"市二医院"
+    },{
+        index:11,
+            name:"太升南路"
+    },{
+        index:12,
+            name:"骡马市"
+    },{
+        index:13,
+            name:"宽窄巷子"
+    },{
+        index:14,
+            name:"中医大省医院"
+    },{
+        index:15,
+            name:"草堂北路"
+    },{
+        index:16,
+            name:"西南财大"
+    },{
+        index:17,
+            name:"文化宫"
+    },{
+        index:18,
+            name:"清江西路"
+    },{
+        index:19,
+            name:"成都西站"
+    },{
+        index:20,
+            name:"中坝"
+    },{
+        index:21,
+            name:"蔡桥"
+    },{
+        index:22,
+            name:"非遗博览园"
+    },{
+        index:23,
+            name:"马厂坝"
+    },{
+        index:24,
+            name:"凤凰大街"
+    },{
+        index:25,
+            name:"涌泉"
+    },{
+        index:26,
+            name:"光华公园"
+    },{
+        index:27,
+            name:"南熏大道"
+    },{
+        index:28,
+            name:"凤溪河"
+    },{
+        index:29,
+            name:"杨柳河"
+    },{
+        index:30,
+        name:"万盛"
+    }]
+        },
+        //方法属性
+        methods:{
+
+        },
+        //过滤器属性
+        filters:{
+
+        }
+    })
+</script>
+</body>
+</html>
